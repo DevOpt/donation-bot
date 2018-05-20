@@ -1,0 +1,23 @@
+{
+  "name": "donation-bot",
+  "version": "1.0.0",
+  "description": "Automated donation platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "facebook",
+    "messenger",
+    "donation",
+    "node",
+    "bot"
+  ],
+  "author": "Abdurahman Sherif",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "request": "^2.86.0"
+  }
+}
