@@ -14,7 +14,7 @@ app.get('/', function(req, res){
   res.send('Hello World!!')
 })
 
-app.get('/', function(req, res){
+app.get('/webook/', function(req, res){
   if(req.query['hub.verify_token'] ===
     'my_voice_is_my_password_verify_me') {
       res.send(req.query['hub.challenge'])
