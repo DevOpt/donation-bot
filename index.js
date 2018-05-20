@@ -81,11 +81,11 @@ function sendGenericMessage(sender) {
                 "elements": [{
                     "title": "First card",
                     "subtitle": "Element #1 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
+                    "image_url": "https://www.protoexpress.com/blog/wp-content/uploads/2017/10/Facebook-F8.png",
                     "buttons": [{
                         "type": "web_url",
                         "url": "https://www.messenger.com",
-                        "title": "web url"
+                        "title": "Web Url"
                     }, {
                         "type": "postback",
                         "title": "Postback",
@@ -94,7 +94,7 @@ function sendGenericMessage(sender) {
                 }, {
                     "title": "Second card",
                     "subtitle": "Element #2 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
+                    "image_url": "https://www.protoexpress.com/blog/wp-content/uploads/2017/10/Facebook-AR.png",
                     "buttons": [{
                         "type": "postback",
                         "title": "Postback",
