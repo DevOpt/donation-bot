@@ -81,14 +81,7 @@ function sendTextMessage(sender, text) {
 
 // Conversation starter
 function starter(sender) {
-  let messageData = {
-    messages: [{
-        "text":"hello"
-     },
-     {
-        "text":"wasguud"
-     }]
-  };
+  let messageData = {"text":"Hello human"}
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
       qs: {access_token:access},
