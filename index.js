@@ -41,7 +41,8 @@ app.post('/webhook/', function (req, res) {
         if (text === 'Generic') {
             sendGenericMessage(sender)
             continue
-        } else if (text === 'Start') {
+        }
+        if (text === 'Start') {
             starter(sender)
             continue
         }
