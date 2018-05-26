@@ -42,7 +42,7 @@ app.post('/webhook/', function (req, res) {
             sendGenericMessage(sender)
             continue
         } else if (text === 'Get Started'){
-            sendTextMessage(sender, "Hello " + session.message.user.name +"!")
+            sendTextMessage(sender, "Hello " + message.From.Name +"!")
             continue
         }
         sendTextMessage(sender, "Message received: " + text.substring(0, 200))
