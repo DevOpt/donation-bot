@@ -41,10 +41,10 @@ app.post('/webhook/', function (req, res) {
         if (text === 'Generic') {
             sendGenericMessage(sender)
             continue
-        } /*else if (text === 'Get Started'){
+        } else if (text === 'Get Started'){
             starter(sender)
             continue
-        }*/
+        }
         sendTextMessage(sender, "Message received: " + text.substring(0, 200))
       }
       if (event.postback && event.postback.payload === 'first') {
@@ -81,7 +81,14 @@ function sendTextMessage(sender, text) {
 
 // Conversation starter
 function starter(sender) {
-  let messageData = {text:"Hello {{user_first_name}}!"}
+  let messageData = {
+    "greeting":[
+  {
+    "locale":"default",
+    "text":"Hello {{user_first_name}}!"
+  }
+]
+  }
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
       qs: {access_token:access},
