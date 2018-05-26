@@ -30,10 +30,6 @@ app.listen(app.get('port'), function(){
   console.log('Running on port', app.get('port'))
 })
 
-app.get('/setup/',function(req,res){
-    starter(res);
-});
-
 // Creates the endpoint for our webhook
 app.post('/webhook/', function (req, res) {
     let messaging_events = req.body.entry[0].messaging
@@ -44,6 +40,9 @@ app.post('/webhook/', function (req, res) {
         let text = event.message.text
         if (text === 'Generic') {
             sendGenericMessage(sender)
+            continue
+        } else if (text === 'Get Started'){
+            sendTextMessage(sender, "Hi human! I'm Donation Bot.")
             continue
         }
         sendTextMessage(sender, "Message received: " + text.substring(0, 200))
