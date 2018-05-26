@@ -82,8 +82,7 @@ function sendTextMessage(sender, text) {
 // Conversation starter
 function starter(sender) {
   let messageData = {
-    "text":"Hello",
-    "text":"I'm is Donation Bot"
+    "text":"Hello"
   }
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
