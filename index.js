@@ -30,6 +30,10 @@ app.listen(app.get('port'), function(){
   console.log('Running on port', app.get('port'))
 })
 
+app.get('/setup/',function(req,res){
+    starter(res);
+});
+
 // Creates the endpoint for our webhook
 app.post('/webhook/', function (req, res) {
     let messaging_events = req.body.entry[0].messaging
