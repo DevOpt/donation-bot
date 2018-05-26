@@ -41,10 +41,10 @@ app.post('/webhook/', function (req, res) {
         if (text === 'Generic') {
             sendGenericMessage(sender)
             continue
-        } else if (text === 'Get Started'){
+        } /*else if (text === 'Get Started'){
             starter(sender)
             continue
-        }
+        }*/
         sendTextMessage(sender, "Message received: " + text.substring(0, 200))
       }
       if (event.postback && event.postback.payload === 'first') {
