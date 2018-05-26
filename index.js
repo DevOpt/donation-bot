@@ -42,7 +42,7 @@ app.post('/webhook/', function (req, res) {
             sendGenericMessage(sender)
             continue
         } else if (text === 'Get Started'){
-            sendTextMessage(sender, "Hi human! I'm Donation Bot.")
+            starter(sender)
             continue
         }
         sendTextMessage(sender, "Message received: " + text.substring(0, 200))
@@ -82,7 +82,7 @@ function sendTextMessage(sender, text) {
 // Conversation starter
 function starter(sender) {
   let messageData = {
-    "get_started": {"payload": "first"}
+    "Hello {{user_first_name}}!"
   }
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
