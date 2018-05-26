@@ -42,11 +42,11 @@ app.post('/webhook/', function (req, res) {
             sendGenericMessage(sender)
             continue
         }
-        if (text === 'Start') {
-            starter(sender)
-            continue
-        }
         sendTextMessage(sender, "Message received: " + text.substring(0, 200))
+      }
+      if (even.postback && event.postback.payload === 'first') {
+        let text = "Hello human!! I'm Donation Bot"
+        sendTextMessage(sender, text)
       }
       if (event.postback) {
         let text = JSON.stringify(event.postback)
@@ -78,13 +78,16 @@ function sendTextMessage(sender, text) {
 
 // Conversation starter
 function starter(sender) {
+  let messageData = {
+    "get_started": {"payload": "first"}
+  }
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
       qs: {access_token:access},
       method: 'POST',
       json: {
           recipient: {id:sender},
-          message: "Hello Human! I am Donation Bot.",
+          message: messageData,
       }
   }, function(error, response, body) {
       if (error) {
