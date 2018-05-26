@@ -48,7 +48,7 @@ app.post('/webhook/', function (req, res) {
         }
         sendTextMessage(sender, "Message received: " + text.substring(0, 200))
       }
-      if (even.postback && event.postback.payload === 'first') {
+      if (event.postback && event.postback.payload === 'first') {
         let text = "Hello human!! I'm Donation Bot"
         sendTextMessage(sender, text)
       }
