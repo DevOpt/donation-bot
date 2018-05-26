@@ -42,7 +42,7 @@ app.post('/webhook/', function (req, res) {
             sendGenericMessage(sender)
             continue
         } else if (text === 'Get Started'){
-            let name = JSON.parse(body)
+            let name = JSON.parse(req.body)
             sendTextMessage(sender, "Hello " + name.first_name +"!")
             continue
         }
