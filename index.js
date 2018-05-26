@@ -81,7 +81,17 @@ function sendTextMessage(sender, text) {
 
 // Conversation starter
 function starter(sender) {
-  let messageData = {"text":"Hello {{user_first_name}}!"}
+  let messageData = {
+    "greeting":[
+      {
+        "locale":"default",
+        "text":"Hello!"
+      }, {
+        "locale":"en_US",
+        "text":"Timeless apparel for the masses."
+      }
+    ]
+  }
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
       qs: {access_token:access},
