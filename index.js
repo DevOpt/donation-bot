@@ -82,6 +82,7 @@ function sendTextMessage(sender, text) {
 // Conversation starter
 function starter(sender) {
   let messageData = {
+    "setting_type":"greeting",
     "greeting":[
       {
         "locale":"default",
