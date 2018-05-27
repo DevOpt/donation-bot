@@ -42,13 +42,15 @@ app.post('/webhook/', function (req, res) {
             sendTextMessage(sender, "Hello!")
             sendTextMessage(sender, "Choose your preferred charity organization: ")
             orgList(sender)
+            loop()
             continue
         }
         sendTextMessage(sender, "Message received: " + text.substring(0, 200))
       }
       if (event.postback) {
         let text = JSON.stringify(event.postback)
-        sendTextMessage(sender, "Postback: "+ text.substring(0, 200), access)
+        orderConfirmation(sender)
+        //sendTextMessage(sender, "Postback: "+ text.substring(0, 200), access)
         continue
       }
     }
@@ -74,6 +76,7 @@ function sendTextMessage(sender, text) {
     })
 }
 
+// List of charity organizations
 function orgList(sender) {
     let messageData = {
         "attachment": {
@@ -94,9 +97,9 @@ function orgList(sender) {
                     "subtitle": "Islamic Relief is a charity organised under UK law that serves as catalyst and coordinator for many relief projects around the globe",
                     "image_url": "https://www.islamic-relief.org/wp-content/uploads/2014/06/irw-post-img-605x340.jpg",
                     "buttons": [{
-                        "type": "web_url",
-                        "title": "Donate",
-                        "url": "https://www.islamic-relief.org/",
+                      "type": "postback",
+                      "title": "Postback",
+                      "payload": "Payload for second element in a generic bubble",
                     }],
                 }]
             }
@@ -117,4 +120,75 @@ function orgList(sender) {
             console.log('Error: ', response.body.error)
         }
     })
+}
+
+// Donation order confirmation
+function orderConfirmation(sender){
+  messageData = {
+    "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "receipt",
+          "recipient_name": "Mark Zuckerberg",
+          "order_number": "12345678901",
+          "currency": "USD",
+          "payment_method": "Visa 2345",
+          "order_url": "https://rockets.chatfuel.com/store?order_id=12345678901",
+          "timestamp": "1428444666",
+          "address": {
+            "street_1": "1 Hacker Way",
+            "street_2": "",
+            "city": "Menlo Park",
+            "postal_code": "94025",
+            "state": "CA",
+            "country": "US"
+          },
+          "summary": {
+            "subtotal": 105,
+            "shipping_cost": 4.95,
+            "total_tax": 9,
+            "total_cost": 118.95
+          },
+          "adjustments": [
+            {
+              "name": "CF Rockets Superstar",
+              "amount": -25
+            }
+          ],
+          "elements": [
+            {
+              "title": "Chatfuel Rockets Jersey",
+              "subtitle": "Size: M",
+              "quantity": 1,
+              "price": 65,
+              "currency": "USD",
+              "image_url":   "http://rockets.chatfuel.com/assets/shirt.jpg"
+            },
+            {
+              "title": "Chatfuel Rockets Jersey",
+              "subtitle": "Size: L",
+              "quantity": 1,
+              "price": 65,
+              "currency": "USD",
+              "image_url":   "http://rockets.chatfuel.com/assets/shirt.jpg"
+            }
+          ]
+        }
+      }
+  }
+  request({
+      url: 'https://graph.facebook.com/v2.6/me/messages',
+      qs: {access_token:access},
+      method: 'POST',
+      json: {
+          recipient: {id:sender},
+          message: messageData,
+      }
+  }, function(error, response, body) {
+      if (error) {
+          console.log('Error sending messages: ', error)
+      } else if (response.body.error) {
+          console.log('Error: ', response.body.error)
+      }
+  })
 }
