@@ -50,6 +50,7 @@ app.post('/webhook/', function (req, res) {
       if (event.postback) {
         let text = JSON.stringify(event.postback)
         orderConfirmation(sender)
+        loop(sender)
         //sendTextMessage(sender, "Postback: "+ text.substring(0, 200), access)
         continue
       }
@@ -191,4 +192,24 @@ function orderConfirmation(sender){
           console.log('Error: ', response.body.error)
       }
   })
+}
+
+// Loop
+function loop(sender){
+  messageData = {
+    {
+      "text":  "Would you like to make another payment?",
+      "quick_replies": [
+        {
+          "title":"Loved it!",
+          "block_names": ["Block 1", "Block 2"]
+        },
+        {
+          "title":"Not really...",
+          "url": "https://rockets.chatfuel.com/api/sad-match",
+          "type":"json_plugin_url"
+        }
+      ]
+    }
+  }
 }
