@@ -201,7 +201,7 @@ function loop(sender){
       "quick_replies": [
         {
           "title":"Loved it!"
-        
+          "content_type":"text"
         },
         {
           "title":"Not really...",
