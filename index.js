@@ -200,8 +200,8 @@ function loop(sender){
       "text":  "Would you like to make another payment?",
       "quick_replies": [
         {
-          "title":"Loved it!",
-          "block_names": ["Block 1", "Block 2"]
+          "title":"Loved it!"
+        
         },
         {
           "title":"Not really...",
