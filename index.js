@@ -171,7 +171,7 @@ function orderConfirmation(sender){
               "quantity": 1,
               "price": 65,
               "currency": "USD",
-              "image_url":   "http://rockets.chatfuel.com/assets/shirt.jpg"
+              "image_url": "http://rockets.chatfuel.com/assets/shirt.jpg"
             }
           ]
         }
@@ -198,17 +198,17 @@ function orderConfirmation(sender){
 function loop(sender){
   messageData = {
       "text":  "Would you like to make another payment?",
-      "quick_replies": [
+      "quick_replies":[
         {
-          "title":"Loved it!"
-          "content_type":"text"
+          "content_type":"text",
+          "title":"Search",
+          "payload":"post",
+          "image_url":"http://rockets.chatfuel.com/assets/shirt.jpg"
         },
         {
-          "title":"Not really...",
-          "url": "https://rockets.chatfuel.com/api/sad-match",
-          "type":"json_plugin_url"
+          "content_type":"location"
         }
-      ]
+    ]
   }
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
