@@ -197,7 +197,6 @@ function orderConfirmation(sender){
 // Loop
 function loop(sender){
   messageData = {
-    {
       "text":  "Would you like to make another payment?",
       "quick_replies": [
         {
@@ -210,7 +209,6 @@ function loop(sender){
           "type":"json_plugin_url"
         }
       ]
-    }
   }
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
