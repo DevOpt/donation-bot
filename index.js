@@ -49,7 +49,7 @@ app.post('/webhook/', function (req, res) {
       }
       if (event.postback) {
         let text = JSON.stringify(event.postback)
-        orderConfirmation(sender)
+        //orderConfirmation(sender)
         loop(sender)
         //sendTextMessage(sender, "Postback: "+ text.substring(0, 200), access)
         continue
@@ -202,8 +202,7 @@ function loop(sender){
         {
           "content_type":"text",
           "title":"Search",
-          "payload":"post",
-          "image_url":"http://rockets.chatfuel.com/assets/shirt.jpg"
+          "payload":"post"
         },
         {
           "content_type":"location"
