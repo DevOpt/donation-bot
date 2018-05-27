@@ -38,12 +38,10 @@ app.post('/webhook/', function (req, res) {
       let sender = event.sender.id
       if (event.message && event.message.text) {
         let text = event.message.text
-        if (text === 'Generic') {
-            sendGenericMessage(sender)
-            continue
-        } else if (text === 'Get Started'){
-            let name = JSON.parse(req.body)
-            sendTextMessage(sender, "Hello " + name.first_name +"!")
+        if (text === 'Get Started'){
+            sendTextMessage(sender, "Hello!")
+            sendTextMessage(sender, "Choose your preferred charity organization: ")
+            orgList(sender)
             continue
         }
         sendTextMessage(sender, "Message received: " + text.substring(0, 200))
@@ -76,53 +74,29 @@ function sendTextMessage(sender, text) {
     })
 }
 
-// Conversation starter
-function starter(sender) {
-  let messageData = {"text":"Hello "}
-  request({
-      url: 'https://graph.facebook.com/v2.6/me/messages',
-      qs: {access_token:access},
-      method: 'POST',
-      json: {
-          recipient: {id:sender},
-          message: messageData,
-      }
-  }, function(error, response, body) {
-      if (error) {
-          console.log('Error sending messages: ', error)
-      } else if (response.body.error) {
-          console.log('Error: ', response.body.error)
-      }
-  })
-}
-
-function sendGenericMessage(sender) {
+function orgList(sender) {
     let messageData = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
                 "elements": [{
-                    "title": "First card",
-                    "subtitle": "Element #1 of an hscroll",
-                    "image_url": "https://www.protoexpress.com/blog/wp-content/uploads/2017/10/Facebook-F8.png",
+                    "title": "International Rescue Committee",
+                    "subtitle": "The International Rescue Committee (IRC) responds to the world's worst humanitarian crises and helps people to survive and rebuild their lives.",
+                    "image_url": "https://4.bp.blogspot.com/-55VVyrI5s-E/WH3fXzc55zI/AAAAAAAAAHk/g0IurhuHLmE8IRiaNIZQ77rvJeTNfuZWQCLcB/s400/irc.jpg",
                     "buttons": [{
                         "type": "web_url",
-                        "url": "https://www.messenger.com",
-                        "title": "Web Url"
-                    }, {
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for first element in a generic bubble",
+                        "url": "https://www.rescue.org",
+                        "title": "Donate"
                     }],
                 }, {
-                    "title": "Second card",
-                    "subtitle": "Element #2 of an hscroll",
-                    "image_url": "https://www.protoexpress.com/blog/wp-content/uploads/2017/10/Facebook-AR.png",
+                    "title": "Islamic Relief",
+                    "subtitle": "Islamic Relief is a charity organised under UK law that serves as catalyst and coordinator for many relief projects around the globe",
+                    "image_url": "https://www.islamic-relief.org/wp-content/uploads/2014/06/irw-post-img-605x340.jpg",
                     "buttons": [{
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for second element in a generic bubble",
+                        "type": "web_url",
+                        "title": "Donate",
+                        "url": "https://www.islamic-relief.org/",
                     }],
                 }]
             }
