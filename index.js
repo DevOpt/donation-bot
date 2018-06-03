@@ -41,13 +41,14 @@ app.post('/webhook/', function (req, res) {
         if (text === 'Get Started'){
             sendTextMessage(sender, "Hello!")
             sendTextMessage(sender, "Choose your preferred charity organization: ")
-            orgList(sender)
-            loop()
             continue
         }
         chat(sender, text)
-        //sendTextMessage(sender, "Message received: " + text.substring(0, 200))
+      } else if (event.message && event.message.attachment) {
+        sendTextMessage(sender, "Sorry I couldn't recognize your message! 😅")
+        chat(sender, "Help")
       }
+
       if (event.postback) {
         let text = JSON.stringify(event.postback)
         //orderConfirmation(sender)
@@ -250,7 +251,6 @@ function chat(sender, text){
 
   } else if (text === 'Donate') {
     messageData = {
-        "text":"Choose your preferred organization:",
         "attachment": {
             "type": "template",
             "payload": {
