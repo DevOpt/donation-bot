@@ -229,10 +229,43 @@ function loop(sender){
 
 // Handles conversations
 function chat(sender, text){
-  if (text === 'Help') {
-    text = "I can help you with anything!"
-  }
   let messageData = { text:text }
+
+  if (text === 'Help') {
+    text = "How can I help you today?"
+    messageData = { text:text }
+
+  } else if (text === 'Donate') {
+    messageData = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "International Rescue Committee",
+                    "subtitle": "The International Rescue Committee (IRC) responds to the world's worst humanitarian crises and helps people to survive and rebuild their lives.",
+                    "image_url": "https://4.bp.blogspot.com/-55VVyrI5s-E/WH3fXzc55zI/AAAAAAAAAHk/g0IurhuHLmE8IRiaNIZQ77rvJeTNfuZWQCLcB/s400/irc.jpg",
+                    "buttons": [{
+                        "type": "web_url",
+                        "url": "https://help.rescue.org/donate",
+                        "title": "Donate"
+                    }],
+                }, {
+                    "title": "Islamic Relief",
+                    "subtitle": "Islamic Relief is a charity organised under UK law that serves as catalyst and coordinator for many relief projects around the globe",
+                    "image_url": "https://www.islamic-relief.org/wp-content/uploads/2014/06/irw-post-img-605x340.jpg",
+                    "buttons": [{
+                      "type": "postback",
+                      "title": "Postback",
+                      "payload": "Payload for second element in a generic bubble",
+                    }],
+                }]
+            }
+        }
+    }
+  } else {
+    text = "Sorry! I don't know what you're talking about."
+  }
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
       qs: {access_token:access},
