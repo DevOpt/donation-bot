@@ -45,6 +45,7 @@ app.post('/webhook/', function (req, res) {
             loop()
             continue
         }
+        chat(text)
         sendTextMessage(sender, "Message received: " + text.substring(0, 200))
       }
       if (event.postback) {
@@ -90,7 +91,7 @@ function orgList(sender) {
                     "image_url": "https://4.bp.blogspot.com/-55VVyrI5s-E/WH3fXzc55zI/AAAAAAAAAHk/g0IurhuHLmE8IRiaNIZQ77rvJeTNfuZWQCLcB/s400/irc.jpg",
                     "buttons": [{
                         "type": "web_url",
-                        "url": "https://www.rescue.org",
+                        "url": "https://help.rescue.org/donate",
                         "title": "Donate"
                     }],
                 }, {
@@ -224,4 +225,11 @@ function loop(sender){
           console.log('Error: ', response.body.error)
       }
   })
+}
+
+// Chat conversation
+function chat(message){
+  if (message.type ) {
+
+  }
 }
