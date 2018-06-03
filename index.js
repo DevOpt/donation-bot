@@ -46,7 +46,7 @@ app.post('/webhook/', function (req, res) {
             continue
         }
         chat(sender, text)
-        sendTextMessage(sender, "Message received: " + text.substring(0, 200))
+        //sendTextMessage(sender, "Message received: " + text.substring(0, 200))
       }
       if (event.postback) {
         let text = JSON.stringify(event.postback)
@@ -233,7 +233,21 @@ function chat(sender, text){
 
   if (text === 'Help') {
     text = "How can I help you today?"
-    messageData = { text:text }
+    messageData = {
+        "text":  "How can I help you today?",
+        "quick_replies":[
+          {
+            "content_type":"text",
+            "title":"Donate",
+            "payload":"Test donate"
+          },
+          {
+            "content_type":"text",
+            "title":"Learn more",
+            "payload":"Test Learn more"
+          }
+      ]
+    }
 
   } else if (text === 'Donate') {
     messageData = {
@@ -265,6 +279,7 @@ function chat(sender, text){
     }
   } else {
     text = "Sorry! I don't know what you're talking about."
+    messageData = { text:text }
   }
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
