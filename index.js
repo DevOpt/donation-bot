@@ -45,7 +45,7 @@ app.post('/webhook/', function (req, res) {
             loop()
             continue
         }
-        chat(text)
+        chat(sender, text)
         sendTextMessage(sender, "Message received: " + text.substring(0, 200))
       }
       if (event.postback) {
@@ -228,8 +228,25 @@ function loop(sender){
 }
 
 // Chat conversation
-function chat(message){
-  if (message.type ) {
-
+function chat(sender, text){
+  if (text === 'Help') {
+    text = "I can help you with anything!"
   }
+  let messageData = { text:text }
+  request({
+      url: 'https://graph.facebook.com/v2.6/me/messages',
+      qs: {access_token:access},
+      method: 'POST',
+      json: {
+          recipient: {id:sender},
+          message: messageData,
+      }
+  }, function(error, response, body) {
+      if (error) {
+          console.log('Error sending messages: ', error)
+      } else if (response.body.error) {
+          console.log('Error: ', response.body.error)
+      }
+  })
+
 }
