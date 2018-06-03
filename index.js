@@ -227,7 +227,7 @@ function loop(sender){
   })
 }
 
-// Chat conversation
+// Handles conversations
 function chat(sender, text){
   if (text === 'Help') {
     text = "I can help you with anything!"
