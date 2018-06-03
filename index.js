@@ -81,6 +81,7 @@ function sendTextMessage(sender, text) {
 // List of charity organizations
 function orgList(sender) {
     let messageData = {
+        "text":"Choose your preferred charity organization:",
         "attachment": {
             "type": "template",
             "payload": {
@@ -232,19 +233,18 @@ function chat(sender, text){
   let messageData = { text:text }
 
   if (text === 'Help') {
-    text = "How can I help you today?"
     messageData = {
         "text":  "How can I help you today?",
         "quick_replies":[
           {
             "content_type":"text",
             "title":"Donate",
-            "payload":"Test donate"
+            "payload":"donate"
           },
           {
             "content_type":"text",
             "title":"Learn more",
-            "payload":"Test Learn more"
+            "payload":"learn-more"
           }
       ]
     }
