@@ -252,6 +252,7 @@ function chat(sender, text){
     }
 
   } else if (text === 'Donate') {
+    sendTextMessage(sender, "Choose your preferred organization:")
     messageData = {
         "attachment": {
             "type": "template",
