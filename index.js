@@ -45,7 +45,7 @@ app.post('/webhook/', function (req, res) {
         }
         chat(sender, text)
       }
-      if (event.message.attachment) {
+      if (event.attachment) {
         sendTextMessage(sender, "Sorry I couldn't recognize your message! 😅")
         chat(sender, "Help")
         continue
@@ -277,8 +277,20 @@ function chat(sender, text){
                     }],
                 }]
             }
-        }
-    }
+        },
+        "quick_replies":[
+            {
+                "content_type":"text",
+                "title":"Thanks",
+                "payload":"awesome"
+            },
+            {
+                "content_type":"text",
+                "title":"Learn more",
+                "payload":"blah"
+            }
+        ]
+     }
   } else {
     text = "Sorry! I don't know what you're talking about. 😅"
     messageData = { text:text }
