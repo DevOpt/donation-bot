@@ -361,7 +361,7 @@ function handlePostback(sender, received_postback){
   } else if (payload === "learn") {
     response = {"text":"Learn about the charity organizations"}
   } else if (payload === "greeting") {
-    response = {"text":"Welcome to Donation Bot!"}
+    response = {"text":"Hello {{user_first_name}}, welcome to Donation Bot!"}
   }
 
   // Send the response
