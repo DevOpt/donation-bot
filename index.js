@@ -45,6 +45,8 @@ app.post('/webhook/', function (req, res) {
       if (event.message) {
         handleMessage(sender, event.message);
         console.log(event.message);
+      } else if (event.postback) {
+
       }
 
       if (event.postback) {
@@ -316,11 +318,54 @@ function handleMessage(sender, received_message){
   if (received_message.text) {
     response = {"text":`You sent the message: "${received_message.text}"!`}
   } else if (received_message.attachments) {
-    response = {"text":"Sorry! I don't know what you're talking about 😅"}
+    response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "International Rescue Committee",
+                    "subtitle": "The International Rescue Committee (IRC) responds to the world's worst humanitarian crises and helps people to survive and rebuild their lives.",
+                    "image_url": "https://4.bp.blogspot.com/-55VVyrI5s-E/WH3fXzc55zI/AAAAAAAAAHk/g0IurhuHLmE8IRiaNIZQ77rvJeTNfuZWQCLcB/s400/irc.jpg",
+                    "buttons": [{
+                        "type": "postback",
+                        "payload": "donate",
+                        "title": "Donate"
+                    }],
+                }, {
+                    "title": "Islamic Relief",
+                    "subtitle": "Islamic Relief is a charity organised under UK law that serves as catalyst and coordinator for many relief projects around the globe",
+                    "image_url": "https://www.islamic-relief.org/wp-content/uploads/2014/06/irw-post-img-605x340.jpg",
+                    "buttons": [{
+                      "type": "postback",
+                      "title": "Learn",
+                      "payload": "learn",
+                    }],
+                }]
+            }
+        }
+    }
   }
 
   // Send the response message
   callSendAPI(sender, response);
+}
+
+function handlePostback(sender, received_postback){
+  let response;
+
+  // Get the payload for the postback
+  let payload = received_postback.payload;
+
+  // Set the response based on the postback payload
+  if (payload === "donate") {
+    response = {"text":"You can donate to IRC"}
+  } else if (payload === "learn") {
+    response = {"text":"Learn about the charity organizations"}
+  }
+
+  // Send the response
+  callSendAPI(sender, response)
 }
 
 function callSendAPI(sender, response){
