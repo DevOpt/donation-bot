@@ -25,6 +25,11 @@ app.get('/webhook/', function(req, res){
   res.send('Failed to verify token!')
 })
 
+// Setup Get Started button that triggers one time
+app.get('/setup', function(req, res){
+  setupGetStartedButton(res)
+});
+
 // Set up the server
 app.listen(app.get('port'), function(){
   console.log('Running on port', app.get('port'))
@@ -384,4 +389,31 @@ function callSendAPI(sender, response){
           console.log('Error: ', response.body.error)
       }
   })
+}
+
+function setupGetStartedButton(response){
+  var messageData = {
+                "get_started":[
+                {
+                    "payload":"greetings"
+                    }
+                ]
+        };
+        // Start the request
+             request({
+                 url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ access,
+                 method: 'POST',
+                 headers: {'Content-Type': 'application/json'},
+                 form: messageData
+             },
+             function (error, response, body) {
+                 if (!error && response.statusCode == 200) {
+                     // Print out the response body
+                     res.send(body);
+
+                 } else {
+                     // TODO: Handle errors
+                     res.send(body);
+                 }
+             });
 }
