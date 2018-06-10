@@ -43,11 +43,9 @@ app.post('/webhook/', function (req, res) {
 
       // Check if the event is message or postback
       if (event.message) {
-        senderAction(sender)  // Display typing bubble
         handleMessage(sender, event.message);
         console.log(event.message);
       } else if (event.postback) {
-        senderAction(sender)  // Display typing bubble
         handlePostback(sender, event.postback)
       }
 
@@ -307,6 +305,8 @@ function chat(sender, text){
 }
 
 function handleMessage(sender, received_message){
+
+  senderAction(sender)  // Display typing bubble
   let response;
 
   // Check if the message sent is text or attachments
@@ -352,6 +352,8 @@ function handleMessage(sender, received_message){
 }
 
 function handlePostback(sender, received_postback){
+
+  senderAction(sender)  // Display typing bubble
   let response;
 
   // Get the payload for the postback
