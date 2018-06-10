@@ -46,16 +46,9 @@ app.post('/webhook/', function (req, res) {
         handleMessage(sender, event.message);
         console.log(event.message);
       } else if (event.postback) {
-
+        handlePostback(sender, event.postback)
       }
 
-      if (event.postback) {
-        let text = JSON.stringify(event.postback)
-        //orderConfirmation(sender)
-        loop(sender)
-        //sendTextMessage(sender, "Postback: "+ text.substring(0, 200), access)
-        continue
-      }
     }
     res.sendStatus(200)
 })
