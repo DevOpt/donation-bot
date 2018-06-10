@@ -312,9 +312,11 @@ function chat(sender, text){
 function handleMessage(sender, received_message){
   let response;
 
-  // Check if the message sent is text
+  // Check if the message sent is text or attachments
   if (received_message.text) {
     response = {"text":`You sent the message: "${received_message.text}"!`}
+  } else if (received_message.attachments) {
+    response = {"text":"Sorry! I don't know what you're talking about 😅"}
   }
 
   // Send the response message
