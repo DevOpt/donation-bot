@@ -43,9 +43,11 @@ app.post('/webhook/', function (req, res) {
 
       // Check if the event is message or postback
       if (event.message) {
+        senderAction(sender)  // Display typing bubble
         handleMessage(sender, event.message);
         console.log(event.message);
       } else if (event.postback) {
+        senderAction(sender)  // Display typing bubble
         handlePostback(sender, event.postback)
       }
 
@@ -345,8 +347,6 @@ function handleMessage(sender, received_message){
     }
   }
 
-  changeState(sender, response)
-
   // Send the response message
   callSendAPI(sender, response);
 }
@@ -372,12 +372,11 @@ function handlePostback(sender, received_postback){
       response = {"text":"I'm not sure how to handle this postback 😅"}
   }
 
-  changeState(sender, response)
   // Send the response
   callSendAPI(sender, response)
 }
 
-function changeState(sender, response){
+function senderAction(sender){
   // Construct sender action
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
