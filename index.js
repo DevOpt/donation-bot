@@ -32,13 +32,19 @@ app.listen(app.get('port'), function(){
 
 // Creates the endpoint for our webhook
 app.post('/webhook/', function (req, res) {
+
+    // Get the body of the event webhook
     let messaging_events = req.body.entry[0].messaging
     for (let i = 0; i < messaging_events.length; i++) {
       let event = req.body.entry[0].messaging[i]
+
+      // Get the sender ID
       let sender = event.sender.id
-      let received_message = event.message
-      if (received_message) {
-        handleMessage(sender, received_message);
+
+      // Check if the event is message or postback
+      if (event.message) {
+        handleMessage(sender, event.message);
+        console.log(event.message);
       }
 
       if (event.postback) {
