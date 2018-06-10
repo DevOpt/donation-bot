@@ -45,7 +45,6 @@ app.post('/webhook/', function (req, res) {
 
       // Get the sender ID
       let sender = event.sender.id
-      console.log(event.sender);
 
       // Check if the event is message or postback
       if (event.message) {
@@ -366,6 +365,8 @@ function handlePostback(sender, received_postback){
     response = {"text":"You can donate to IRC"}
   } else if (payload === "learn") {
     response = {"text":"Learn about the charity organizations"}
+  } else if (payload === "greetings") {
+    response = {"text":"HEY HEY!!!"}
   }
 
   // Send the response
