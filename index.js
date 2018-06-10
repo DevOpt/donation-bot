@@ -40,6 +40,7 @@ app.post('/webhook/', function (req, res) {
 
       // Get the sender ID
       let sender = event.sender.id
+      console.log(event.sender);
 
       // Check if the event is message or postback
       if (event.message) {
@@ -309,7 +310,12 @@ function handleMessage(sender, received_message){
 
   // Check if the message sent is text or attachments
   if (received_message.text) {
-    response = {"text":`You sent the message: "${received_message.text}"!`}
+    let text = received_message.text;
+    if (text === "Hi") {
+      response = {"text":`Hi Human!`}
+    }else {
+      response = {"text":`You sent the message: "${received_message.text}"!`}
+    }
   } else if (received_message.attachments) {
     response = {
         "attachment": {
