@@ -382,6 +382,7 @@ function callSendAPI(sender, response){
       method: 'POST',
       json: {
           recipient: {id:sender},
+          "sender_action":"typing_on",
           message: response,
       }
   }, function(error, response, body) {
