@@ -33,7 +33,6 @@ app.listen(app.get('port'), function(){
 // Creates the endpoint for our webhook
 app.post('/webhook/', function (req, res) {
 
-    console.log(req.body);
     // Get the body of the event webhook
     let messaging_events = req.body.entry[0].messaging
     for (let i = 0; i < messaging_events.length; i++) {
@@ -357,12 +356,18 @@ function handlePostback(sender, received_postback){
   let payload = received_postback.payload;
 
   // Set the response based on the postback payload
-  if (payload === "donate") {
-    response = {"text":"You can donate to IRC"}
-  } else if (payload === "learn") {
-    response = {"text":"Learn about the charity organizations"}
-  } else if (payload === "greeting") {
-    response = {"text":"Hello {{user_first_name}}, welcome to Donation Bot!"}
+  switch (payload) {
+    case "greeting":
+      response = {"text":"Welcome to Donation Bot!"}
+      break;
+    case "donate":
+      response = {"text":"You can donate to IRC"}
+      break;
+    case "learn":
+      response = {"text":"Learn about the charity organizations"}
+      break;
+    default:
+      response = {"text":"I'm not sure how to handle this postback 😅"}
   }
 
   // Send the response
