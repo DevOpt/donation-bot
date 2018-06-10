@@ -36,19 +36,9 @@ app.post('/webhook/', function (req, res) {
     for (let i = 0; i < messaging_events.length; i++) {
       let event = req.body.entry[0].messaging[i]
       let sender = event.sender.id
-      if (event.message && event.message.text) {
-        let text = event.message.text
-        if (text === 'Get Started'){
-            sendTextMessage(sender, "Hello!")
-            sendTextMessage(sender, "Choose your preferred charity organization: ")
-            continue
-        }
-        chat(sender, text)
-      }
-      if (event.message.attachment) {
-        sendTextMessage(sender, "Sorry I couldn't recognize your message! 😅")
-        chat(sender, "Help")
-        continue
+      let received_message = event.message
+      if (received_message) {
+        handleMessage(sender, received_message);
       }
 
       if (event.postback) {
@@ -311,5 +301,35 @@ function chat(sender, text){
           console.log('Error: ', response.body.error)
       }
   })
+}
 
+function handleMessage(sender, received_message){
+  let response;
+
+  // Check if the message sent is text
+  if (received_message.text) {
+    response = {"text":`You sent the message: "${received_message.text}"!`}
+  }
+
+  // Send the response message
+  callSendAPI(sender, response);
+}
+
+function callSendAPI(sender, response){
+  // Construct the message
+  request({
+      url: 'https://graph.facebook.com/v2.6/me/messages',
+      qs: {access_token:access},
+      method: 'POST',
+      json: {
+          recipient: {id:sender},
+          message: response,
+      }
+  }, function(error, response, body) {
+      if (error) {
+          console.log('Error sending messages: ', error)
+      } else if (response.body.error) {
+          console.log('Error: ', response.body.error)
+      }
+  })
 }
