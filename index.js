@@ -33,6 +33,7 @@ app.listen(app.get('port'), function(){
 // Creates the endpoint for our webhook
 app.post('/webhook/', function (req, res) {
 
+    console.log(req.body);
     // Get the body of the event webhook
     let messaging_events = req.body.entry[0].messaging
     for (let i = 0; i < messaging_events.length; i++) {
