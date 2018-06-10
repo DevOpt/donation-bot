@@ -345,6 +345,8 @@ function handleMessage(sender, received_message){
     }
   }
 
+  changeState(sender, response)
+
   // Send the response message
   callSendAPI(sender, response);
 }
@@ -370,8 +372,28 @@ function handlePostback(sender, received_postback){
       response = {"text":"I'm not sure how to handle this postback 😅"}
   }
 
+  changeState(sender, response)
   // Send the response
   callSendAPI(sender, response)
+}
+
+function changeState(sender, response){
+  // Construct sender action
+  request({
+      url: 'https://graph.facebook.com/v2.6/me/messages',
+      qs: {access_token:access},
+      method: 'POST',
+      json: {
+          recipient: {id:sender},
+          "sender_action":"typing_on",
+      }
+  }, function(error, response, body) {
+      if (error) {
+          console.log('Error sending messages: ', error)
+      } else if (response.body.error) {
+          console.log('Error: ', response.body.error)
+      }
+  })
 }
 
 function callSendAPI(sender, response){
@@ -382,7 +404,6 @@ function callSendAPI(sender, response){
       method: 'POST',
       json: {
           recipient: {id:sender},
-          "sender_action":"typing_on",
           message: response,
       }
   }, function(error, response, body) {
