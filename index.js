@@ -45,7 +45,7 @@ app.post('/webhook/', function (req, res) {
         }
         chat(sender, text)
       }
-      if (event.attachment) {
+      if (event.message.attachment) {
         sendTextMessage(sender, "Sorry I couldn't recognize your message! 😅")
         chat(sender, "Help")
         continue
